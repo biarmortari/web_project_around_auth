@@ -20,7 +20,7 @@ export const authorize = (email, password) => {
   );
 };
 
-export const validate = (token) => {
+export const checkToken = (token) => {
   return fetch(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
