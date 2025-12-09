@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "./styles/Login.css";
+import "./Login.css";
 import SignForm from "../SignForm/SignForm";
 
 export default function Login({ handleLogin }) {

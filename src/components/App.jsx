@@ -1,10 +1,21 @@
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
+import { useState, useEffect } from "react";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+
 import Header from "./Header/Header";
 import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
 import Api from "../utils/Api";
 import "../contexts/CurrentUserContext";
-import { useState, useEffect } from "react";
-import CurrentUserContext from "../contexts/CurrentUserContext";
+import Login from "../components/Login/Login";
+import Register from "../components/Register/Register";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -110,11 +121,21 @@ function App() {
       >
         <div className="page">
           <Header />
-          <Main
-            onOpenPopup={handleOpenPopup}
-            onClosePopup={handleClosePopup}
-            popup={popup}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  onOpenPopup={handleOpenPopup}
+                  onClosePopup={handleClosePopup}
+                  popup={popup}
+                />
+              }
+            ></Route>
+            <Route path="/signin" element={<Login />}></Route>
+            <Route path="/signup" element={<Register />}></Route>
+          </Routes>
+
           <Footer />
         </div>
       </CurrentUserContext.Provider>
