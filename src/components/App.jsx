@@ -17,10 +17,14 @@ import "../contexts/CurrentUserContext";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
 
+import authApi from "../utils/auth";
+
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [popup, setPopup] = useState(null);
   const [cards, setCards] = useState([]);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -103,6 +107,37 @@ function App() {
     }
   }
 
+  const handleRegistration = ({ email, password }) => {
+    authApi
+      .register(email, password)
+      .then(() => {
+        alert("Vitória! Você se registrou");
+        /*const infoTooltip = {
+          children: (
+            <InfoTooltip
+              icon={signupSuccess}
+              message="Vitória! Você se registrou"
+            />
+          ),
+        };
+        handleOpenPopup(infoTooltip);*/
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error", error);
+        alert("Ops, algo saiu de errado! Por favor, tente novamente.");
+        /*const infoTooltip = {
+          children: (
+            <InfoTooltip
+              icon={signupFail}
+              message="Ops, algo saiu de errado! Por favor, tente novamente."
+            />
+          ),
+        };
+        handleOpenPopup(infoTooltip);*/
+      });
+  };
+
   return (
     <>
       <CurrentUserContext.Provider
@@ -133,7 +168,10 @@ function App() {
               }
             ></Route>
             <Route path="/signin" element={<Login />}></Route>
-            <Route path="/signup" element={<Register />}></Route>
+            <Route
+              path="/signup"
+              element={<Register handleRegistration={handleRegistration} />}
+            ></Route>
           </Routes>
 
           <Footer />
