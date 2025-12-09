@@ -9,6 +9,8 @@ import {
 import { useState, useEffect } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
+import { setToken } from "../utils/token";
+
 import Header from "./Header/Header";
 import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
@@ -23,6 +25,8 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [popup, setPopup] = useState(null);
   const [cards, setCards] = useState([]);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
 
@@ -107,6 +111,30 @@ function App() {
     }
   }
 
+  const handleLogin = ({ email, password }) => {
+    authApi
+      .authorize(email, password)
+      .then((res) => {
+        setCurrentUser((prevData) => ({ ...prevData, ["email"]: email }));
+        setToken(res.token);
+        setIsLoggedIn(true);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error", error);
+        alert("Ops, algo saiu de errado! Por favor, tente novamente.");
+        /*const infoTooltip = {
+            children: (
+              <InfoTooltip
+                icon={signupFail}
+                message="Ops, algo saiu de errado! Por favor, tente novamente."
+              />
+            ),
+          };
+          handleOpenPopup(infoTooltip);*/
+      });
+  };
+
   const handleRegistration = ({ email, password }) => {
     authApi
       .register(email, password)
@@ -167,7 +195,10 @@ function App() {
                 />
               }
             ></Route>
-            <Route path="/signin" element={<Login />}></Route>
+            <Route
+              path="/signin"
+              element={<Login handleLogin={handleLogin} />}
+            ></Route>
             <Route
               path="/signup"
               element={<Register handleRegistration={handleRegistration} />}
