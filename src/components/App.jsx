@@ -1,15 +1,34 @@
+import {
+  Routes,
+  Route,
+  Navigate,
+  useNavigate,
+  useLocation,
+} from "react-router-dom";
+
+import { useState, useEffect } from "react";
+import CurrentUserContext from "../contexts/CurrentUserContext";
+
+import { setToken } from "../utils/token";
+
 import Header from "./Header/Header";
 import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
 import Api from "../utils/Api";
 import "../contexts/CurrentUserContext";
-import { useState, useEffect } from "react";
-import CurrentUserContext from "../contexts/CurrentUserContext";
+import Login from "../components/Login/Login";
+import Register from "../components/Register/Register";
+
+import authApi from "../utils/auth";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [popup, setPopup] = useState(null);
   const [cards, setCards] = useState([]);
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -92,6 +111,61 @@ function App() {
     }
   }
 
+  const handleLogin = ({ email, password }) => {
+    authApi
+      .authorize(email, password)
+      .then((res) => {
+        setCurrentUser((prevData) => ({ ...prevData, ["email"]: email }));
+        setToken(res.token);
+        setIsLoggedIn(true);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error", error);
+        alert("Ops, algo saiu de errado! Por favor, tente novamente.");
+        /*const infoTooltip = {
+            children: (
+              <InfoTooltip
+                icon={signupFail}
+                message="Ops, algo saiu de errado! Por favor, tente novamente."
+              />
+            ),
+          };
+          handleOpenPopup(infoTooltip);*/
+      });
+  };
+
+  const handleRegistration = ({ email, password }) => {
+    authApi
+      .register(email, password)
+      .then(() => {
+        alert("Vitória! Você se registrou");
+        /*const infoTooltip = {
+          children: (
+            <InfoTooltip
+              icon={signupSuccess}
+              message="Vitória! Você se registrou"
+            />
+          ),
+        };
+        handleOpenPopup(infoTooltip);*/
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error", error);
+        alert("Ops, algo saiu de errado! Por favor, tente novamente.");
+        /*const infoTooltip = {
+          children: (
+            <InfoTooltip
+              icon={signupFail}
+              message="Ops, algo saiu de errado! Por favor, tente novamente."
+            />
+          ),
+        };
+        handleOpenPopup(infoTooltip);*/
+      });
+  };
+
   return (
     <>
       <CurrentUserContext.Provider
@@ -110,11 +184,27 @@ function App() {
       >
         <div className="page">
           <Header />
-          <Main
-            onOpenPopup={handleOpenPopup}
-            onClosePopup={handleClosePopup}
-            popup={popup}
-          />
+          <Routes>
+            <Route
+              path="/"
+              element={
+                <Main
+                  onOpenPopup={handleOpenPopup}
+                  onClosePopup={handleClosePopup}
+                  popup={popup}
+                />
+              }
+            ></Route>
+            <Route
+              path="/signin"
+              element={<Login handleLogin={handleLogin} />}
+            ></Route>
+            <Route
+              path="/signup"
+              element={<Register handleRegistration={handleRegistration} />}
+            ></Route>
+          </Routes>
+
           <Footer />
         </div>
       </CurrentUserContext.Provider>
