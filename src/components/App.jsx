@@ -9,7 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-import { setToken } from "../utils/token";
+import { setToken, getToken } from "../utils/token";
 
 import Header from "./Header/Header";
 import Main from "./Main/Main";
@@ -29,6 +29,21 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const jwt = getToken();
+
+    if (!jwt) {
+      return;
+    }
+
+    authApi.checkToken(jwt).then((res) => {
+      const email = { email: res.data.email };
+      setCurrentUser((prevData) => ({ ...prevData, ...email }));
+      setIsLoggedIn(true);
+      navigate("/");
+    });
+  });
 
   useEffect(() => {
     const fetchUserData = async () => {
