@@ -18,6 +18,7 @@ import Api from "../utils/Api";
 import "../contexts/CurrentUserContext";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 
 import authApi from "../utils/auth";
 
@@ -204,11 +205,13 @@ function App() {
             <Route
               path="/"
               element={
-                <Main
-                  onOpenPopup={handleOpenPopup}
-                  onClosePopup={handleClosePopup}
-                  popup={popup}
-                />
+                <ProtectedRoute>
+                  <Main
+                    onOpenPopup={handleOpenPopup}
+                    onClosePopup={handleClosePopup}
+                    popup={popup}
+                  />
+                </ProtectedRoute>
               }
             ></Route>
             <Route
