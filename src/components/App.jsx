@@ -180,6 +180,7 @@ function App() {
           handleCardDelete,
           handleAddPlaceSubmit,
           popup,
+          isLoggedIn,
         }}
       >
         <div className="page">
