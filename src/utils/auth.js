@@ -30,10 +30,7 @@ class AuthApi {
   checkToken = (token) => {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
+      headers: { ...this._headers, Authorization: `Bearer ${token}` },
     }).then(this._checkResponse);
   };
 }

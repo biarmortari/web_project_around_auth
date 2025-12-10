@@ -9,7 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import CurrentUserContext from "../contexts/CurrentUserContext";
 
-import { setToken } from "../utils/token";
+import { setToken, getToken } from "../utils/token";
 
 import Header from "./Header/Header";
 import Main from "./Main/Main";
@@ -18,6 +18,7 @@ import Api from "../utils/Api";
 import "../contexts/CurrentUserContext";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
+import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
 
 import authApi from "../utils/auth";
 
@@ -29,6 +30,21 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const jwt = getToken();
+
+    if (!jwt) {
+      return;
+    }
+
+    authApi.checkToken(jwt).then((res) => {
+      const email = { email: res.data.email };
+      setCurrentUser((prevData) => ({ ...prevData, ...email }));
+      setIsLoggedIn(true);
+      navigate("/");
+    });
+  });
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -180,6 +196,7 @@ function App() {
           handleCardDelete,
           handleAddPlaceSubmit,
           popup,
+          isLoggedIn,
         }}
       >
         <div className="page">
@@ -188,11 +205,13 @@ function App() {
             <Route
               path="/"
               element={
-                <Main
-                  onOpenPopup={handleOpenPopup}
-                  onClosePopup={handleClosePopup}
-                  popup={popup}
-                />
+                <ProtectedRoute>
+                  <Main
+                    onOpenPopup={handleOpenPopup}
+                    onClosePopup={handleClosePopup}
+                    popup={popup}
+                  />
+                </ProtectedRoute>
               }
             ></Route>
             <Route
