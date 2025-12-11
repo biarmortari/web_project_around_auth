@@ -7,16 +7,15 @@ import NewCard from "./components/Popup/NewCard/NewCard";
 import EditProfile from "./components/Popup/EditProfile/EditProfile";
 import EditAvatar from "./components/Popup/EditAvatar/EditAvatar";
 import ImagePopup from "./components/Popup/ImagePopup/ImagePopup";
+
 import Card from "./components/Card/Card";
-import Popup from "./components/Popup/Popup";
+
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Main() {
   const {
     currentUser,
     handleOpenPopup,
-    handleClosePopup,
-    popup,
     cards,
     handleCardLike,
     handleCardDelete,
@@ -28,22 +27,29 @@ function Main() {
   function handleImageClick(card) {
     setSelectedCard(card);
     handleOpenPopup({
+      type: "image",
       title: "",
       children: <ImagePopup card={card} />,
     });
   }
 
   const newCardPopup = {
+    type: "form",
     title: "Novo Local",
     children: <NewCard onAddPlaceSubmit={handleAddPlaceSubmit} />,
   };
 
   const editProfilePopup = {
+    type: "form",
     title: "Editar Perfil",
     children: <EditProfile />,
   };
 
-  const editAvatarPopup = { title: "Editar Avatar", children: <EditAvatar /> };
+  const editAvatarPopup = {
+    type: "form",
+    title: "Editar Avatar",
+    children: <EditAvatar />,
+  };
 
   return (
     <main className="content">
@@ -109,11 +115,6 @@ function Main() {
           ))}
         </ul>
       </section>
-      {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
-          {popup.children}
-        </Popup>
-      )}
     </main>
   );
 }
