@@ -7,8 +7,9 @@ import NewCard from "./components/Popup/NewCard/NewCard";
 import EditProfile from "./components/Popup/EditProfile/EditProfile";
 import EditAvatar from "./components/Popup/EditAvatar/EditAvatar";
 import ImagePopup from "./components/Popup/ImagePopup/ImagePopup";
+
 import Card from "./components/Card/Card";
-import Popup from "./components/Popup/Popup";
+
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 
 function Main() {
@@ -109,11 +110,6 @@ function Main() {
           ))}
         </ul>
       </section>
-      {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
-          {popup.children}
-        </Popup>
-      )}
     </main>
   );
 }

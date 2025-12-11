@@ -19,8 +19,14 @@ import "../contexts/CurrentUserContext";
 import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
 import ProtectedRoute from "../components/ProtectedRoute/ProtectedRoute";
+import InfoTooltip from "../components/Main/components/Popup/InfoTooltip/InfoTooltip";
+
+import Popup from "../components/Main/components/Popup/Popup";
 
 import authApi from "../utils/auth";
+
+import signupSuccess from "../images/signupSuccess.svg";
+import signupFail from "../images/signupFail.svg";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
@@ -44,7 +50,7 @@ function App() {
       setIsLoggedIn(true);
       navigate("/");
     });
-  });
+  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -138,39 +144,7 @@ function App() {
       })
       .catch((error) => {
         console.log("error", error);
-        alert("Ops, algo saiu de errado! Por favor, tente novamente.");
-        /*const infoTooltip = {
-            children: (
-              <InfoTooltip
-                icon={signupFail}
-                message="Ops, algo saiu de errado! Por favor, tente novamente."
-              />
-            ),
-          };
-          handleOpenPopup(infoTooltip);*/
-      });
-  };
-
-  const handleRegistration = ({ email, password }) => {
-    authApi
-      .register(email, password)
-      .then(() => {
-        alert("Vitória! Você se registrou");
-        /*const infoTooltip = {
-          children: (
-            <InfoTooltip
-              icon={signupSuccess}
-              message="Vitória! Você se registrou"
-            />
-          ),
-        };
-        handleOpenPopup(infoTooltip);*/
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log("error", error);
-        alert("Ops, algo saiu de errado! Por favor, tente novamente.");
-        /*const infoTooltip = {
+        const infoTooltip = {
           children: (
             <InfoTooltip
               icon={signupFail}
@@ -178,7 +152,36 @@ function App() {
             />
           ),
         };
-        handleOpenPopup(infoTooltip);*/
+        handleOpenPopup(infoTooltip);
+      });
+  };
+
+  const handleRegistration = ({ email, password }) => {
+    authApi
+      .register(email, password)
+      .then(() => {
+        const infoTooltip = {
+          children: (
+            <InfoTooltip
+              icon={signupSuccess}
+              message="Vitória! Você se registrou"
+            />
+          ),
+        };
+        handleOpenPopup(infoTooltip);
+        navigate("/");
+      })
+      .catch((error) => {
+        console.log("error", error);
+        const infoTooltip = {
+          children: (
+            <InfoTooltip
+              icon={signupFail}
+              message="Ops, algo saiu de errado! Por favor, tente novamente."
+            />
+          ),
+        };
+        handleOpenPopup(infoTooltip);
       });
   };
 
@@ -226,6 +229,11 @@ function App() {
 
           <Footer />
         </div>
+        {popup && (
+          <Popup onClose={handleClosePopup} title={popup.title}>
+            {popup.children}
+          </Popup>
+        )}
       </CurrentUserContext.Provider>
     </>
   );
