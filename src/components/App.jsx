@@ -145,6 +145,7 @@ function App() {
       .catch((error) => {
         console.log("error", error);
         const infoTooltip = {
+          type: "tooltip",
           children: (
             <InfoTooltip
               icon={signupFail}
@@ -161,6 +162,7 @@ function App() {
       .register(email, password)
       .then(() => {
         const infoTooltip = {
+          type: "tooltip",
           children: (
             <InfoTooltip
               icon={signupSuccess}
@@ -174,6 +176,7 @@ function App() {
       .catch((error) => {
         console.log("error", error);
         const infoTooltip = {
+          type: "tooltip",
           children: (
             <InfoTooltip
               icon={signupFail}
@@ -230,7 +233,11 @@ function App() {
           <Footer />
         </div>
         {popup && (
-          <Popup onClose={handleClosePopup} title={popup.title}>
+          <Popup
+            onClose={handleClosePopup}
+            title={popup.title}
+            type={popup.type}
+          >
             {popup.children}
           </Popup>
         )}

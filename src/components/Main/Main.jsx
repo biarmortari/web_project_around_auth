@@ -16,8 +16,6 @@ function Main() {
   const {
     currentUser,
     handleOpenPopup,
-    handleClosePopup,
-    popup,
     cards,
     handleCardLike,
     handleCardDelete,
@@ -29,22 +27,29 @@ function Main() {
   function handleImageClick(card) {
     setSelectedCard(card);
     handleOpenPopup({
+      type: "image",
       title: "",
       children: <ImagePopup card={card} />,
     });
   }
 
   const newCardPopup = {
+    type: "form",
     title: "Novo Local",
     children: <NewCard onAddPlaceSubmit={handleAddPlaceSubmit} />,
   };
 
   const editProfilePopup = {
+    type: "form",
     title: "Editar Perfil",
     children: <EditProfile />,
   };
 
-  const editAvatarPopup = { title: "Editar Avatar", children: <EditAvatar /> };
+  const editAvatarPopup = {
+    type: "form",
+    title: "Editar Avatar",
+    children: <EditAvatar />,
+  };
 
   return (
     <main className="content">
