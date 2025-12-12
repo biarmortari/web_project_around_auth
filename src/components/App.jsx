@@ -166,7 +166,7 @@ function App() {
           children: (
             <InfoTooltip
               icon={signupSuccess}
-              message="Vitória! Você se registrou"
+              message="Vitória! Você se registrou!"
             />
           ),
         };
