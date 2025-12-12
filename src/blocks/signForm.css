@@ -42,3 +42,18 @@
   opacity: 0.85;
   cursor: pointer;
 }
+
+.sign-link {
+  font-weight: 400;
+  font-size: 14px;
+  text-decoration: none;
+  color: #fff;
+  display: flex;
+  align-self: center;
+  justify-content: center;
+  margin-top: 0.5rem;
+}
+
+.sign-link:hover {
+  opacity: 0.6;
+}

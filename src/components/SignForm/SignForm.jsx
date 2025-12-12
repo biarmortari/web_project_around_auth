@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function SignForm(props) {
-  const { name, title, link, onSubmit } = props;
+  const { name, title, text, onSubmit } = props;
 
   const [data, setData] = useState({
     email: "",
@@ -55,6 +55,7 @@ export default function SignForm(props) {
           {title}
         </button>
       </fieldset>
+      {text}
     </form>
   );
 }

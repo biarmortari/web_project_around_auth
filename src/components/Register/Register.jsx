@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import "./Register.css";
 import SignForm from "../SignForm/SignForm";
 
 export default function Register({ handleRegistration }) {
@@ -9,10 +8,12 @@ export default function Register({ handleRegistration }) {
         name="register"
         title="Inscrever-se"
         onSubmit={handleRegistration}
+        text={
+          <Link className="sign-link" to="/signin">
+            Já é um membro? Faça o login aqui!
+          </Link>
+        }
       />
-      <Link className="register__signin-link" to="/signin">
-        Já é um membro? Faça o login aqui!
-      </Link>
     </div>
   );
 }
