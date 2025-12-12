@@ -58,3 +58,23 @@
 .sign-link:hover {
   opacity: 0.6;
 }
+
+@media screen and (max-width: 728px) {
+  .form__input {
+    width: 60%;
+  }
+
+  .form__button {
+    width: 60%;
+  }
+}
+
+@media screen and (max-width: 481px) {
+  .form__input {
+    width: 80%;
+  }
+
+  .form__button {
+    width: 80%;
+  }
+}
