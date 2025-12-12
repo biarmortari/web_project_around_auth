@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function SignForm(props) {
-  const { name, title, onSubmit } = props;
+  const { name, title, link, onSubmit } = props;
 
   const [data, setData] = useState({
     email: "",
