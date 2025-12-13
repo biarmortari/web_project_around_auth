@@ -12,6 +12,7 @@ A aplicação utiliza React para:
 - Gerenciar o estado de forma eficiente com _hooks_ (`useState`, `useEffect`).
 - Promover a reutilização de componentes.
 - Manter a conexão com o servidor para persistência de dados (CRUD).
+- Criar rotas com redirecionamento para registro e login de usuários.
 
 ## Funcionalidades Implementadas
 
@@ -21,6 +22,7 @@ O projeto mantém as funcionalidades completas de uma aplicação moderna, agora
 ✅ **Edição de Perfil:** Atualização de nome e descrição do usuário.
 ✅ **Interação com API:** O site consome a API do servidor da TripleTen para todas as operações de CRUD (_Create, Read, Update, Delete_).
 ✅ **Gerenciamento de Estado:** Uso de `useState` e `useEffect` para controle de componentes e reatividade da interface.
+✅ **Autorização e autenticação:** Permite o registro e login de usuários.
 ✅ **UX Aprimorada:** Interface fluida e organizada, aproveitando a natureza declarativa do React.
 ✅ **Responsividade:** Design totalmente adaptável a diferentes tamanhos de tela (smartphones, tablets e desktops).
 
