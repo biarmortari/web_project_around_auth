@@ -15,7 +15,11 @@ export default function SignForm(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(data);
+    const sanitizedData = {
+      email: data.email.trim().toLowerCase(),
+      password: data.password,
+    };
+    onSubmit(sanitizedData);
   };
 
   const formClass = `form form_sign form__${name}`;
