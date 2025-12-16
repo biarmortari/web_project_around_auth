@@ -44,26 +44,43 @@ function App() {
       return;
     }
 
-    authApi.checkToken(jwt).then((res) => {
-      const email = { email: res.data.email };
-      setCurrentUser((prevData) => ({ ...prevData, ...email }));
-      setIsLoggedIn(true);
-      navigate("/");
-    });
+    authApi
+      .checkToken(jwt)
+      .then((res) => {
+        const email = { email: res.data.email };
+        setCurrentUser((prevData) => ({ ...prevData, ...email }));
+        setIsLoggedIn(true);
+        navigate("/");
+      })
+      .catch((err) => {
+        console.log("Token inválido:", err);
+      });
   }, []);
+
+  const getUserData = async () => {
+    try {
+      const userData = await Api.getUserInfo();
+      setCurrentUser(userData);
+    } catch (err) {
+      console.log("Erro ao buscar dados do usuário:", err);
+    }
+  };
+
+  const getCardsData = async () => {
+    try {
+      const [cards] = await Api.getAppInfo();
+      setCards(cards);
+    } catch (err) {
+      console.log("Erro ao buscar cards:", err);
+    }
+  };
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const userData = await Api.getUserInfo();
-        setCurrentUser(userData);
-      } catch (err) {
-        console.log("Erro ao buscar dados do usuário:", err);
-      }
-    };
+    if (!isLoggedIn) return;
 
-    fetchUserData();
-  }, []);
+    getUserData();
+    getCardsData();
+  }, [isLoggedIn]);
 
   const handleUpdateUser = async (data) => {
     try {
@@ -92,12 +109,6 @@ function App() {
       console.error("Erro ao atualizar avatar:", error);
     }
   };
-
-  useEffect(() => {
-    Api.getAppInfo().then(([cards]) => {
-      setCards(cards);
-    });
-  }, []);
 
   async function handleCardLike(card) {
     try {
