@@ -1,7 +1,8 @@
 import logo from "../../images/logo.png";
 import CurrentUserContext from "../../contexts/CurrentUserContext";
 import { useState, useContext } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { removeToken } from "../../utils/token";
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,13 +11,23 @@ function Header() {
     setIsOpen(!isOpen);
   };
 
-  const { isLoggedIn, currentUser } = useContext(CurrentUserContext);
+  const { isLoggedIn, currentUser, setIsLoggedIn } =
+    useContext(CurrentUserContext);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  function signOut() {
+    removeToken();
+    setIsLoggedIn(false);
+    navigate("/signin");
+  }
 
   const userMenu = (
     <ul className="header__nav">
       <li className="header__email">{currentUser?.email}</li>
-      <li className="header__link header__link_signout">Sair</li>
+      <li className="header__link header__link_signout" onClick={signOut}>
+        Sair
+      </li>
     </ul>
   );
 

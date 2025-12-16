@@ -1,51 +1,70 @@
-# EUA Afora 🌎
+# EUA Afora 🌎 (Around the U.S.)
 
-## Descrição do Projeto
+## 📝 Descrição do Projeto
 
-Este projeto, intitulado "Around the U.S.", é uma **plataforma interativa desenvolvida em React** que visa compartilhar fotos de diferentes lugares nos Estados Unidos. O objetivo é proporcionar aos visitantes uma experiência imersiva, permitindo que **compartilhem suas experiências, fotos e histórias** relacionadas a diferentes regiões do país.
+O **EUA Afora** é uma plataforma interativa desenvolvida em **React** que permite aos usuários compartilhar fotos e experiências de viagens pelos Estados Unidos. Este projeto consolida a transição de JavaScript puro para uma arquitetura moderna baseada em componentes, focando em reatividade e escalabilidade.
 
-Ele faz parte das últimas _sprints_ do bootcamp de Desenvolvimento Web da TripleTen, onde o foco foi a transição de JavaScript puro para o uso de uma biblioteca moderna como o **React** e a manutenção da **integração com a API** do servidor da TripleTen.
+Nesta etapa atual do desenvolvimento, o foco principal foi a implementação de **fluxos de autenticação, autorização e proteção de rotas**, garantindo uma aplicação segura onde apenas usuários registrados podem interagir com a galeria de fotos.
 
-A aplicação utiliza React para:
+---
 
-- Construir interfaces dinâmicas e reativas.
-- Gerenciar o estado de forma eficiente com _hooks_ (`useState`, `useEffect`).
-- Promover a reutilização de componentes.
-- Manter a conexão com o servidor para persistência de dados (CRUD).
-- Criar rotas com redirecionamento para registro e login de usuários.
+## ✨ Novidades da Sprint: Autenticação e Segurança
 
-## Funcionalidades Implementadas
+A aplicação agora conta com um sistema completo de gerenciamento de acesso:
 
-O projeto mantém as funcionalidades completas de uma aplicação moderna, agora implementadas com React:
+- **Sistema de Login e Registro:** Implementação das rotas `/signin` e `/signup`.
+- **Rotas Protegidas (`ProtectedRoute`):** A rota raiz (`/`) e as funcionalidades de edição são exclusivas para usuários autenticados. Usuários não autorizados são automaticamente redirecionados para o login.
+- **Gestão de Sessão (JWT):** Utilização de JSON Web Tokens armazenados no `localStorage` para persistência da sessão.
+- **Feedback Visual (`InfoTooltip`):** Modais que informam ao usuário se o cadastro ou login foi realizado com sucesso ou se houve algum erro.
+- **Cabeçalho Dinâmico:** O `Header` adapta-se conforme o estado de autenticação, exibindo o e-mail do usuário e opções de navegação.
 
-✅ **Criação e Gerenciamento de Cartões:** Adição, visualização, curtidas e exclusão de cartões de imagem interativos.
-✅ **Edição de Perfil:** Atualização de nome e descrição do usuário.
-✅ **Interação com API:** O site consome a API do servidor da TripleTen para todas as operações de CRUD (_Create, Read, Update, Delete_).
-✅ **Gerenciamento de Estado:** Uso de `useState` e `useEffect` para controle de componentes e reatividade da interface.
-✅ **Autorização e autenticação:** Permite o registro e login de usuários.
-✅ **UX Aprimorada:** Interface fluida e organizada, aproveitando a natureza declarativa do React.
-✅ **Responsividade:** Design totalmente adaptável a diferentes tamanhos de tela (smartphones, tablets e desktops).
+---
 
-## Tecnologias e Boas Práticas
+## 🚀 Funcionalidades Principais
 
-O desenvolvimento foi focado no uso eficiente das seguintes tecnologias e técnicas:
+✅ **Gerenciamento de Cartões (CRUD):** Adição, visualização, curtidas e exclusão de fotos interativas.  
+✅ **Edição de Perfil:** Atualização de nome, descrição e avatar do usuário através de modais.  
+✅ **Autenticação de Usuário:** Registro e login integrados via API.  
+✅ **Experiência do Usuário (UX):** Uso de estados de carregamento e validações de formulário.  
+✅ **Responsividade Total:** Design adaptável para dispositivos móveis, tablets e desktops.
 
-| Categoria       | Tecnologia/Técnica       | Descrição                                                                                                             |
-| :-------------- | :----------------------- | :-------------------------------------------------------------------------------------------------------------------- |
-| **Framework**   | **React**                | Biblioteca JavaScript essencial para construção de interfaces dinâmicas e reativas, usando componentes reutilizáveis. |
-| **Linguagem**   | **JSX (JavaScript XML)** | Facilita a escrita de componentes React, combinando JavaScript com a estrutura declarativa semelhante ao HTML.        |
-| **Estilização** | **CSS Modularizado**     | Uso de **CSS Modules** para garantir o encapsulamento dos estilos e evitar conflitos globais entre classes.           |
-| **Estrutura**   | **Organização Modular**  | Código estruturado de forma organizada, separando a lógica dos componentes e seguindo boas práticas de manutenção.    |
-| **Web Vitals**  | **Estrutura Semântica**  | Manutenção da semântica HTML5, mesmo utilizando React, para acessibilidade e melhor organização do conteúdo.          |
-| **Otimização**  | **Boas Práticas de SEO** | Inclusão de _metatags_ e estrutura de cabeçalho para otimizar a visibilidade em motores de busca.                     |
+---
 
-## Desafios enfrentados
+## 🛠️ Tecnologias e Boas Práticas
 
-Este projeto marcou a **transição do JavaScript puro para o React**, exigindo a reescrita de toda a lógica do DOM e do gerenciamento de estado para o modelo de componentes e _hooks_. O principal desafio foi:
+| Categoria       | Tecnologia / Ferramenta  | Descrição                                                 |
+| :-------------- | :----------------------- | :-------------------------------------------------------- |
+| **Framework**   | **React**                | Construção de UI declarativa baseada em componentes.      |
+| **Roteamento**  | **React Router**         | Gerenciamento de navegação SPA e segurança de rotas.      |
+| **Comunicação** | **Fetch API**            | Integração com back-end via métodos REST e Bearer Tokens. |
+| **Hooks**       | **useState / useEffect** | Controle de estado global e sincronização com a API.      |
+| **Estilização** | **CSS Modular / BEM**    | Estilos encapsulados para evitar conflitos globais.       |
 
-- Dominar o **ciclo de vida dos componentes** e o uso correto de `useEffect` para sincronizar o estado da aplicação com a API externa.
-- Garantir que todas as **funcionalidades de CRUD** fossem reimplementadas de forma eficiente e reativa no ecossistema React.
+---
 
-## Visite o site ao vivo
+## 🏗️ Integração com a API
 
-[**A aplicação foi implantada na Vercel e pode ser acessada aqui.**](https://webprojectaroundreact.vercel.app)
+A lógica de autenticação foi centralizada no módulo `src/utils/auth.js`, conectando-se ao back-end da TripleTen:
+
+- **URL Base:** `https://se-register-api.en.tripleten-services.com/v1`
+- **Endpoints:**
+  - `POST /signup`: Registro de novos usuários.
+  - `POST /signin`: Login e geração de token JWT.
+  - `GET /users/me`: Validação de token e recuperação de dados do usuário.
+
+> [!IMPORTANT]
+> Para garantir a segurança, todas as requisições de dados agora incluem o cabeçalho `Authorization: Bearer {token}`.
+
+---
+
+## 🧠 Desafios Enfrentados
+
+A maior complexidade desta etapa foi coordenar o **ciclo de vida dos componentes** com a persistência do token. Garantir que o aplicativo verifique a validade do usuário no `localStorage` assim que carrega (via `useEffect`) foi essencial para evitar que o usuário precisasse fazer login a cada atualização de página.
+
+---
+
+## 🔗 Visite o Site ao Vivo
+
+Você pode testar a aplicação no link abaixo:
+
+👉 [**EUA Afora - Live Demo**](https://web-project-around-auth-nu.vercel.app/signin)
