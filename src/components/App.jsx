@@ -60,7 +60,10 @@ function App() {
   const getUserData = async () => {
     try {
       const userData = await Api.getUserInfo();
-      setCurrentUser(userData);
+      setCurrentUser((prev) => ({
+        ...prev,
+        ...userData,
+      }));
     } catch (err) {
       console.log("Erro ao buscar dados do usuário:", err);
     }
