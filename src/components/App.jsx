@@ -217,6 +217,7 @@ function App() {
           handleAddPlaceSubmit,
           popup,
           isLoggedIn,
+          setIsLoggedIn,
         }}
       >
         <div className="page">

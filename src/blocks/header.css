@@ -41,6 +41,7 @@
 
 .header__link_signout {
   color: #a9a9a9;
+  cursor: pointer;
 }
 
 .header__nav-burger {
